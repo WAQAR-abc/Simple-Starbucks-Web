@@ -1,0 +1,33 @@
+name: Deploy My Website to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploying-web-to-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.website.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonning the repo
+        run: git clone https://github.com/WAQAR-abc/Simple-Starbucks-Web.git
+
+      - name: Setup/Install Pages
+        uses: actions/configure-pages@v5
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+          
+      - name: Deploy to GitHub Pages
+        id: website
+        uses: actions/deploy-pages@v4
