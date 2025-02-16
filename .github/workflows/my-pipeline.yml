@@ -14,11 +14,13 @@ jobs:
   deploying-web-to-pages:
     environment:
       name: github-pages
-      url: ${{ steps.website.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Clonning the repo
         run: git clone https://github.com/WAQAR-abc/Simple-Starbucks-Web.git
+
+      - run: ls -a
 
       - name: Setup/Install Pages
         uses: actions/configure-pages@v5
@@ -29,5 +31,5 @@ jobs:
           path: '.'
           
       - name: Deploy to GitHub Pages
-        id: website
+        id: deployment
         uses: actions/deploy-pages@v4
